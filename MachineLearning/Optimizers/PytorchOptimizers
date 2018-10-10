@@ -1,0 +1,40 @@
+import torch
+import torch.nn as nn
+import torch.optim as optim
+
+
+class PytorchOptimizers():
+    """
+
+    """
+    def __init__(self, LEARNING_RATE=0.001, PARAMETERS, BETAS=(0.9, 0.999), EPSILON=1e-6, WEIGHT_DECAY=1e-5, AMSGRAD=False):
+        self.learning_rate = LEARNING_RATE
+        self.criterion = nn.CrossEntropyLoss()
+        self.parameters = PARAMETERS
+        self.betas = BETAS
+        self.eps = EPSILON
+        self.weight_decay = WEIGHT_DECAY
+        self.amsgrad = AMSGRAD
+
+    def adam(self):
+        optimizer = optim.Adam(self.parameters,
+                               lr=self.learning_rate,
+                               betas=self.betas,
+                               eps=self.eps,
+                               weight_decay=self.weight_decay,
+                               amsgrad=self.amsgrad)
+
+    
+
+
+
+LEARNING_RATE = 0.001
+criterion = nn.CrossEntropyLoss()
+# weight_decay is equal to L2 regularization
+# optimizer = optim.Adam(net.parameters(), lr=LEARNING_RATE)
+optimizer = optim.Adam(net.parameters(), lr=LEARNING_RATE, betas=(0.9, 0.999), eps=1e-6, weight_decay=1e-5, amsgrad=False)
+
+def accuracy(ys, ts):
+    predictions = torch.max(ys, 1)[1]
+    correct_prediction = torch.eq(predictions, ts)
+    return torch.mean(correct_prediction.float())
